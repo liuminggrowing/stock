@@ -2,13 +2,13 @@
 import os
 import sys
 import redis
-from dbHelper import mydb
+from dbHelper import dbHelper
 import urllib2
 reload(sys)
 sys.setdefaultencoding('utf8')
 
 redish = redis.Redis(host="localhost",port="6379",db=0)
-mdb = mydb("stock")
+mdb = dbHelper("stock")
 
 def main():
     targets = {"ha":"sh","hb":"sh","sa":"sz","sb":"sz","zs":"sz","jj":"sh","etf":"sh"}

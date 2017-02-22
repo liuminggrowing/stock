@@ -4,7 +4,7 @@ import ConfigParser
 import MySQLdb
 import MySQLdb.cursors
 
-class mydb:
+class dbHelper:
     def __init__(self,section):
         self.cf = ConfigParser.ConfigParser()
         self.cwd = os.getcwd()

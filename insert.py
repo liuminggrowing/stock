@@ -1,11 +1,11 @@
 import os
 import sys
-from dbHelper import mydb
+from dbHelper import dbHelper
 reload(sys)
 sys.setdefaultencoding('utf8')
 
 def main():
-    mdb = mydb("stock")
+    mdb = dbHelper("stock")
     for line in open("stock_code.txt"):
         stock = line.strip("\n").split(" ")
         sql="insert ignore into stock(`type`,`stock_id`,`stock_name`) values(\"%s\",\"%s\",\"%s\")" % (stock[0],stock[1],stock[2])
