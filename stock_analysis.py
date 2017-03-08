@@ -4,6 +4,9 @@ import sys
 import redis
 from dbHelper import dbHelper
 import urllib2
+import time
+
+from multiprocessing import Pool
 reload(sys)
 sys.setdefaultencoding('utf8')
 
@@ -31,13 +34,14 @@ def main():
                 redish.zadd("stock::jiage",val,float(rsp[3]))
                 redish.zadd("stock::zhangdie",val,float(rsp[31]))
                 redish.zadd("stock::shiyinlv",val,float(rsp[46]))
+
             
 def display(desc,lists):
     print desc
     for l in lists:
         print l[0],l[1]
 
-if __name__ == "__main__":
+def simple():
     main()
     res = redish.zrange("stock::jiage",0,10,True,True)
     display("当前价格",res)
@@ -45,3 +49,15 @@ if __name__ == "__main__":
     display("市盈率",res)
     res =  redish.zrange("stock::zhangdie",0,10,True,True)
     display("涨跌",res)
+
+def history_analysis():
+    cur = time.strftime("%Y-%m-%d")
+    stocks = mdb.select("select stock_id from stock")
+    for stock in stocks:
+        mdb.select("select * from history where stock_id="+stock["stock_id"]+"and date>")
+     
+
+if __name__ == "__main__":
+    #simple()
+    history_analysis()
+    
